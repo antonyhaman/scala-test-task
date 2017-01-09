@@ -27,8 +27,8 @@ class FlightDataFileWriter(fileName: String) {
   }
 
   private def initialize(): PrintWriter = {
+    new File(this.path).mkdirs
     val fileToWrite = new File(this.path + fileName)
-    fileToWrite.mkdirs()
     if (fileToWrite.exists())
       fileToWrite.delete()
     fileToWrite.createNewFile()

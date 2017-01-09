@@ -24,15 +24,15 @@ object DataStructureConverter {
     dataSet.foreach(flightData => {
       val orig = flightData.origin
       val dest = flightData.destination
-      if (!treeMap.contains(dest)) treeMap = treeMap + (dest -> 1)
-      else treeMap = treeMap + (dest -> (treeMap(dest) + 1))
-      if (!treeMap.contains(orig)) treeMap = treeMap + (orig -> -1)
-      else treeMap = treeMap + (orig -> (treeMap(orig) - 1))
+      if (!treeMap.contains(orig)) treeMap += (orig -> -1)
+      else treeMap += (orig -> (treeMap(orig) - 1))
+      if (!treeMap.contains(dest)) treeMap += (dest -> 1)
+      else treeMap += (dest -> (treeMap(dest) + 1))
     })
     treeMap.filter((t) => t._2 != 0)
   }
 
-  def getFlightDataSetsGropedByWeeks(flightDataSet: Set[FlightData]): TreeMap[Int, TreeMap[String, Int]] = {
+  def getTotalNumberArrivedByAirportGropedByWeeks(flightDataSet: Set[FlightData]): TreeMap[Int, TreeMap[String, Int]] = {
     var treeMap = TreeMap[Int, TreeMap[String, Int]]()
     weekNumbersSet.foreach(weekNumber => {
       val flightDataByWeeks = filterFlightDataByWeeks(flightDataSet, weekNumber)
@@ -41,17 +41,19 @@ object DataStructureConverter {
     treeMap
   }
 
-  def getTotalNumberArrivedByAirport(dataSet: Set[FlightData]): TreeMap[String, Int] = {
+  def getTotalNumberArrivedByAirport(flightDataSet: Set[FlightData]): TreeMap[String, Int] = {
     var totalNumberByAirport = TreeMap[String, Int]()
-    dataSet.foreach(line => {
-      val dest = line.destination
-      if (!totalNumberByAirport.contains(dest)) totalNumberByAirport = totalNumberByAirport + (dest -> 1)
-      else totalNumberByAirport = totalNumberByAirport + (dest -> (totalNumberByAirport(dest) + 1))
+    flightDataSet.foreach(flight => {
+      val orig = flight.origin
+      val dest = flight.destination
+      if (!totalNumberByAirport.contains(orig)) totalNumberByAirport += (orig -> 0)
+      if (!totalNumberByAirport.contains(dest)) totalNumberByAirport += (dest -> 1)
+      else totalNumberByAirport += (dest -> (totalNumberByAirport(dest) + 1))
     })
     totalNumberByAirport
   }
 
-  def filterFlightDataByWeeks(dataSet: Set[FlightData], weekNumber: Int): Set[FlightData] = {
-    dataSet.filter((flightData) => DateTimeHelpers.getWeekOfWeekyear(flightData.flDate) == weekNumber)
+  def filterFlightDataByWeeks(flightDataSet: Set[FlightData], weekNumber: Int): Set[FlightData] = {
+    flightDataSet.filter((flight) => DateTimeHelpers.getWeekOfWeekyear(flight.flDate) == weekNumber)
   }
 }

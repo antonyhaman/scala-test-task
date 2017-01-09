@@ -4,7 +4,7 @@ class ConvertIntoFlightDataSetSpec extends BaseTest { def is = s2"""
  This is a specification to check the convertIntoFlightDataSet() function
 
  Resulting set should
-   have 13 elements                         $e1
+   have 14 elements                         $e1
    have head element with year 2014         $e2
    have head element with quarter 1         $e3
    have head element with month 1           $e4
@@ -16,7 +16,7 @@ class ConvertIntoFlightDataSetSpec extends BaseTest { def is = s2"""
                                             """
 
   val elem = flightDataSet.head
-  def e1 = flightDataSet must have size 13
+  def e1 = flightDataSet must have size 14
   def e2 = elem.year must be_==(2014)
   def e3 = elem.quarter must be_==(1)
   def e4 = elem.month must be_==(1)
