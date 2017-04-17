@@ -1,5 +1,18 @@
 # scala-test-task
-This is a test task executed using the Scala language
+This is a test task for an interview executed using the Scala language. The task was as following:
+
+>Problem:
+>You are provided with the *.csv.gz file containing some data about plane flights.
+> 
+>Data has the following schema
+>"YEAR","QUARTER","MONTH","DAY_OF_MONTH","DAY_OF_WEEK","FL_DATE","ORIGIN","DEST"
+> 
+>You'll need to extract several statistics out of the data file:
+>List of all airports with total number of planes for the whole period that arrived to each airport
+>Non-Zero difference in total number of planes that arrived to and left from the airport
+>Do the point 1 but sum number of planes separately per each week
+>Write some tests for the implemented functions
+>Each point 1-3 should produce a separate output file.
 
 # Technologies used
 - Scala
